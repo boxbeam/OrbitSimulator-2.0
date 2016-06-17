@@ -10,6 +10,8 @@ Use the scroll wheel or zoom slider to zoom in and out.
 [Second slider] Time scale slider
 [Reset time scale] Resets the time scale to the default
 [Create body] Click this button and then click on the simulator window to create a body at that location
+[Quick save] Saves the current state of the system
+[Quick load] Reverts the system to the saved state
 #Bodies panel
 This panel shows all bodies in the system. Use the scroll bar to scroll through them.
 Left click a body on the panel to edit or delete it.
