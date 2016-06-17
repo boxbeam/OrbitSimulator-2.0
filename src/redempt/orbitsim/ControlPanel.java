@@ -14,7 +14,7 @@ import javax.swing.JSlider;
 import redempt.orbitsim.scheduler.Task;
 
 public class ControlPanel extends JPanel {
-	
+
 	private static final long serialVersionUID = 6312311327636671689L;
 	JButton pause = new JButton();
 	JButton momentum = new JButton();
@@ -26,7 +26,7 @@ public class ControlPanel extends JPanel {
 	JButton create = new JButton();
 	JSlider time = new JSlider();
 	int timescale = 25;
-	
+
 	public ControlPanel() {
 		this.setBackground(Color.WHITE);
 		this.setVisible(true);
@@ -163,28 +163,37 @@ public class ControlPanel extends JPanel {
 		bar.setLocation(230, 0);
 		bar.setSize(15, 550);
 		bodies.add(bar);
+		List<Body> old = new ArrayList<>();
+		List<PlanetVisualizer> planets = new ArrayList<>();
 		Task render = new Task(new Runnable() {
 			@Override
 			public void run() {
-				int pos = 0;
-				List<PlanetVisualizer> planets = new ArrayList<>();
-				for (Body body : Main.plane.bodies) {
-					PlanetVisualizer planet = new PlanetVisualizer(body);
-					planet.setLocation(0, (pos * 50) - (bar.getValue() * Main.plane.bodies.size()));
-					planets.add(planet);
-					pos++;
+				if (old.containsAll(Main.plane.bodies) && Main.plane.bodies.containsAll(old)) {
+					bodies.repaint();
+					int pos = 0;
+					for (PlanetVisualizer planet : planets) {
+						planet.setLocation(0, (pos * 50) - (bar.getValue() * old.size() * 2));
+						pos++;
+					}
+				} else {
+					old.clear();
+					old.addAll(Main.plane.bodies);
+					planets.clear();
+					for (Body body : Main.plane.bodies) {
+						PlanetVisualizer planet = new PlanetVisualizer(body);
+						planets.add(planet);
+					}
+					bodies.removeAll();
+					for (PlanetVisualizer visualizer : planets) {
+						bodies.add(visualizer);
+					}
+					bodies.add(bar);
+					bodies.repaint();
 				}
-				bodies.removeAll();
-				for (PlanetVisualizer visualizer : planets) {
-					bodies.add(visualizer);
-				}
-				bodies.add(bar);
-				bodies.repaint();
 			}
-		}, true, 200);
+		}, true, 40);
 		render.start();
 		this.add(bodies);
-		
 	}
-	
+
 }
