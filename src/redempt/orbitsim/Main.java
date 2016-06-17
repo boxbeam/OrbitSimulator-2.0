@@ -72,7 +72,7 @@ public class Main {
 					}
 					double diffx = e.getPoint().x - start.x;
 					double diffy = e.getPoint().y - start.y;
-					camera.subtract(diffx / plane.zoom, diffy / plane.zoom);
+					camera = camera.clone().subtract(diffx / plane.zoom, diffy / plane.zoom);
 					start = e.getPoint();
 				}
 			}

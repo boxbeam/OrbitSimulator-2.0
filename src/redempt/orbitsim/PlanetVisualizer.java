@@ -27,7 +27,7 @@ public class PlanetVisualizer extends JPanel {
 				if (e.getButton() == MouseEvent.BUTTON1) {
 					new PlanetEditor(body);
 				} else if (e.getButton() == MouseEvent.BUTTON3) {
-					Main.camera = body.location.clone();
+					Main.camera = body.location;
 				}
 			}
 		});
