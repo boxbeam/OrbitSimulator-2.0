@@ -16,4 +16,8 @@ public class Body {
 		this.location = location;
 	}
 	
+	public Body clone() {
+		return new Body(mass, location.clone(), velocity.clone(), color);
+	}
+	
 }

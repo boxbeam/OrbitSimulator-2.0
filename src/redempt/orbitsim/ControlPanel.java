@@ -5,6 +5,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -24,10 +25,16 @@ public class ControlPanel extends JPanel {
 	JButton centerOfMass = new JButton();
 	JButton resetTimeScale = new JButton();
 	JButton create = new JButton();
+	JButton savebutton = new JButton();
+	JButton loadbutton = new JButton();
 	JSlider time = new JSlider();
 	int timescale = 25;
+	List<Body> save = new ArrayList<>();
 
 	public ControlPanel() {
+		for (Body body : Main.plane.bodies) {
+			save.add(body.clone());
+		}
 		this.setBackground(Color.WHITE);
 		this.setVisible(true);
 		this.setLayout(null);
@@ -152,16 +159,51 @@ public class ControlPanel extends JPanel {
 			}
 		});
 		this.add(create);
+		savebutton.setText("Quick save");
+		savebutton.setSize(125, 50);
+		savebutton.setLocation(0, 420);
+		savebutton.setVisible(true);
+		savebutton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getButton() == MouseEvent.BUTTON1) {
+					save.clear();
+					for (Body body : Main.plane.bodies) {
+						save.add(body.clone());
+					}
+				}
+			}
+		});
+		this.add(savebutton);
+		loadbutton.setText("Quick load");
+		loadbutton.setSize(125, 50);
+		loadbutton.setLocation(125, 420);
+		loadbutton.setVisible(true);
+		loadbutton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (e.getButton() == MouseEvent.BUTTON1) {
+					Main.plane.paused = true;
+					pause.setText("Unpause");
+					List<Body> load = new CopyOnWriteArrayList<>();
+					for (Body body : save) {
+						load.add(body.clone());
+					}
+					Main.plane.bodies = load;
+				}
+			}
+		});
+		this.add(loadbutton);
 		JPanel bodies = new JPanel();
-		bodies.setSize(250, 580);
-		bodies.setLocation(0, 420);
+		bodies.setSize(250, 500);
+		bodies.setLocation(0, 470);
 		bodies.setBackground(Color.GRAY);
 		bodies.setLayout(null);
 		bodies.setVisible(true);
 		JScrollBar bar = new JScrollBar();
 		bar.setVisible(true);
 		bar.setLocation(230, 0);
-		bar.setSize(15, 550);
+		bar.setSize(15, 500);
 		bodies.add(bar);
 		List<Body> old = new ArrayList<>();
 		List<PlanetVisualizer> planets = new ArrayList<>();
