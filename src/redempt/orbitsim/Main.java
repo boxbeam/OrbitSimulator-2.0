@@ -21,6 +21,7 @@ public class Main {
 	public static ImageIcon icon;
 	public static boolean creating = false;
 	public static boolean deleting = false;
+	public static Point mouse = new Point(0, 0);
 	
 	public static void main(String[] args) throws IOException, URISyntaxException {
 		frame.setSize(1000, 1000);
@@ -33,8 +34,8 @@ public class Main {
 		plane.setSize(1000, 1000);
 		plane.setVisible(true);
 		frame.add(plane);
-		Body body = new Body(40, new Location(500, 500), new Vector(30, -20), Color.GREEN);
-		Body body2 = new Body(300, new Location(1100, 1100), new Vector(0, 0), Color.YELLOW);
+		Body body = new Body(40, new Location(500, 500), new Vector(30, -20), Color.GREEN, "Planet");
+		Body body2 = new Body(300, new Location(1100, 1100), new Vector(0, 0), Color.YELLOW, "Sun");
 		plane.addBody(body);
 		plane.addBody(body2);
 		camera = plane.getCenterOfMass();
@@ -77,6 +78,13 @@ public class Main {
 				}
 			}
 			
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				Point point = e.getPoint();
+				point.y -= frame.getInsets().top;
+				mouse = point;
+			}
+			
 		};
 		frame.addMouseMotionListener(adapter);
 		frame.addMouseListener(adapter);
@@ -103,6 +111,11 @@ public class Main {
 		controls.add(panel);
 		controls.setIconImage(icon.getImage());
 		controls.setVisible(true);
+	}
+	
+	public static Color getContrastColor(Color color) {
+		  double y = (299 * color.getRed() + 587 * color.getGreen() + 114 * color.getBlue()) / 1000;
+		  return y >= 128 ? Color.black : Color.white;
 	}
 	
 }

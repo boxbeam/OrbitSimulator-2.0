@@ -2,6 +2,7 @@ package redempt.orbitsim;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -36,7 +37,7 @@ public class Plane extends JPanel {
 								int radius2 = (int) Math.sqrt(body2.mass / Math.PI);
 								radius2 *= 10;
 								double combined = radius + radius2;
-								combined *= 0.6;
+								combined *= 0.8;
 								if (body.location.distance(body2.location) <= combined) {
 									if (body.mass > body2.mass) {
 										body2.color = body.color;
@@ -80,9 +81,17 @@ public class Plane extends JPanel {
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		Point p = Main.mouse;
+		double mx = p.x / zoom;
+		double my = p.y / zoom;
+		mx += Main.camera.x;
+		my += Main.camera.y;
+		mx -= 500 / zoom;
+		my -= 500 / zoom;
 		for (Body body : bodies) {
 			int radius = (int) Math.sqrt(body.mass / Math.PI);
 			radius *= 10;
+			Location loc = new Location(mx, my);
 			g.setColor(body.color);
 			double x = body.location.x * zoom;
 			double y = body.location.y * zoom;
@@ -93,6 +102,12 @@ public class Plane extends JPanel {
 			x += 500;
 			y += 500;
 			g.fillOval((int) x, (int) y, (int) (radius * zoom), (int) (radius * zoom));
+			if (loc.distance(body.location) <= ((radius / 2) * zoom)) {
+				g.setColor(Color.WHITE);
+				g.fillRect(Main.mouse.x - 3, Main.mouse.y - 15, g.getFontMetrics().stringWidth(body.name) + 8, 18);
+				g.setColor(Color.BLACK);
+				g.drawString(body.name, Main.mouse.x, Main.mouse.y);
+			}
 		}
 	}
 	

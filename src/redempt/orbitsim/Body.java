@@ -8,8 +8,10 @@ public class Body {
 	public Vector velocity;
 	public Color color;
 	public Location location;
+	public String name;
 	
-	public Body(int mass, Location location, Vector velocity, Color color) {
+	public Body(int mass, Location location, Vector velocity, Color color, String name) {
+		this.name = name;
 		this.mass = mass;
 		this.velocity = velocity;
 		this.color = color;
@@ -17,7 +19,7 @@ public class Body {
 	}
 	
 	public Body clone() {
-		return new Body(mass, location.clone(), velocity.clone(), color);
+		return new Body(mass, location.clone(), velocity.clone(), color, name);
 	}
 	
 }

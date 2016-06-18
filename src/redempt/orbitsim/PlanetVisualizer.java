@@ -39,9 +39,10 @@ public class PlanetVisualizer extends JPanel {
 		g.setColor(body.color);
 		g.fillRect(0, 0, 30, 100);
 		g.setColor(Color.WHITE);
-		DecimalFormat format = new DecimalFormat("########.#");
-		g.drawString("Mass: " + body.mass, 100, 15);
-		g.drawString("Speed: " + format.format(body.velocity.getLength()), 100, 30);
+		DecimalFormat format = new DecimalFormat("########.##");
+		g.drawString("Mass: " + body.mass, 90, 15);
+		g.drawString("Speed: " + format.format(body.velocity.getLength()), 90, 30);
+		g.drawString("Name: " + body.name, 90, 45);
 		Vector vector = body.velocity.clone();
 		vector.setLength(25);
 		g.fillOval(60 - 2, 25 - 2, 4, 4);

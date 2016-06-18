@@ -58,8 +58,14 @@ public class PlanetMaker extends JFrame {
 		yvel.setPlaceholder("Y velocity");
 		yvel.setVisible(true);
 		this.add(yvel);
+		PlaceholderTextField name = new PlaceholderTextField();
+		name.setLocation(0, 75);
+		name.setSize(500, 25);
+		name.setPlaceholder("Name (Optional)");
+		name.setVisible(true);
+		this.add(name);
 		JButton create = new JButton("Create");
-		create.setLocation(0, 75);
+		create.setLocation(0, 100);
 		create.setSize(500, 25);
 		create.setVisible(true);
 		create.addMouseListener(new MouseAdapter() {
@@ -81,7 +87,7 @@ public class PlanetMaker extends JFrame {
 				int y = Integer.parseInt(yvel.getText());
 				Color color = new Color(redValue, greenValue, blueValue);
 				Vector velocity = new Vector(x, y);
-				Body body = new Body(massValue, new Location(mx, my), velocity, color);
+				Body body = new Body(massValue, new Location(mx, my), velocity, color, name.getText().equals("") ? "(None)" : name.getText());
 				Main.plane.addBody(body);
 				frame.dispose();
 			}
