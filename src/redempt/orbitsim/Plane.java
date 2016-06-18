@@ -102,7 +102,7 @@ public class Plane extends JPanel {
 			x += 500;
 			y += 500;
 			g.fillOval((int) x, (int) y, (int) (radius * zoom), (int) (radius * zoom));
-			if (loc.distance(body.location) <= ((radius / 2) * zoom)) {
+			if (loc.distance(body.location) * zoom <= (radius * zoom / 2)) {
 				g.setColor(Color.WHITE);
 				g.fillRect(Main.mouse.x - 3, Main.mouse.y - 15, g.getFontMetrics().stringWidth(body.name) + 8, 18);
 				g.setColor(Color.BLACK);
