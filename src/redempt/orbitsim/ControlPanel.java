@@ -32,9 +32,7 @@ public class ControlPanel extends JPanel {
 	List<Body> save = new ArrayList<>();
 
 	public ControlPanel() {
-		for (Body body : Main.plane.bodies) {
-			save.add(body.clone());
-		}
+		super();
 		this.setBackground(Color.WHITE);
 		this.setVisible(true);
 		this.setLayout(null);

@@ -2,6 +2,7 @@ package redempt.orbitsim;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
@@ -13,9 +14,11 @@ public class PlanetVisualizer extends JPanel {
 	
 	private static final long serialVersionUID = 620087334473602511L;
 	private Body body;
+	public Point mouse;
 	
 	public PlanetVisualizer(Body body) {
 		super();
+		mouse = new Point(0, 0);
 		this.body = body;
 		this.setSize(230, 50);
 		this.setBackground(Color.BLACK);

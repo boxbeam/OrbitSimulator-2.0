@@ -40,9 +40,16 @@ public class PlanetEditor extends JFrame {
 		yvel.setVisible(true);
 		yvel.setToolTipText("Y velocity");
 		this.add(yvel);
+		PlaceholderTextField name = new PlaceholderTextField(body.name);
+		name.setSize(300, 25);
+		name.setLocation(0, 50);
+		name.setPlaceholder("Name");
+		name.setVisible(true);
+		name.setToolTipText("Name");
+		this.add(name);
 		JButton edit = new JButton("Update");
 		edit.setSize(150, 25);
-		edit.setLocation(0, 50);
+		edit.setLocation(0, 75);
 		edit.setVisible(true);
 		edit.addMouseListener(new MouseAdapter() {
 			@Override
@@ -58,6 +65,7 @@ public class PlanetEditor extends JFrame {
 					body.velocity.x = xv;
 					body.velocity.y = yv;
 					body.mass = m;
+					body.name = name.getText();
 					frame.dispose();
 				}
 			}
@@ -65,7 +73,7 @@ public class PlanetEditor extends JFrame {
 		this.add(edit);
 		JButton delete = new JButton("Delete");
 		delete.setSize(150, 25);
-		delete.setLocation(150, 50);
+		delete.setLocation(150, 75);
 		delete.setVisible(true);
 		delete.addMouseListener(new MouseAdapter() {
 			@Override

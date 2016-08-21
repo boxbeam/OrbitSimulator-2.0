@@ -41,6 +41,7 @@ public class Plane extends JPanel {
 								if (body.location.distance(body2.location) <= combined) {
 									if (body.mass > body2.mass) {
 										body2.color = body.color;
+										body2.name = body.name;
 									}
 									Vector momentum = body.velocity.clone().multiply(body.mass);
 									momentum.divide(body2.mass);
